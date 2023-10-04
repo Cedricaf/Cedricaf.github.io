@@ -1,0 +1,35 @@
+@use 'colors';
+@use 'fonts';
+@use 'components';
+
+
+.footer{
+    @extend %section;
+}
+
+.footer__logos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 4rem;
+    height: 80%;
+    padding: 2rem;
+}
+
+.footer__logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    list-style: none;
+    width: 30rem;
+    height: 30rem;
+    flex-shrink: 0;
+}
+
+.footer__image{
+    @extend %img;
+}
+
+
