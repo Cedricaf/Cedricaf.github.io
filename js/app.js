@@ -1,97 +1,77 @@
-const width = 800, height = 600,
-    canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d"),
-    photoSound = new Audio('sound/camera-13695.mp3');
+const calendarHeader = document.querySelector(".calendar h3");
+const datesContainer = document.querySelector(".dates-generator");
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
 
-    photoSound.volume = 0.7;
+const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
-let video = null, isSetup = false;
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
 
-Setup();
+function renderCalendar() {
+  const startDate = new Date(currentYear, currentMonth, 1).getDay();
+  const endDate = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-function Setup() {
-    if (!isSetup) {
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
-        canvas.style.background = 'lightblue';
+  let datesHtml = generatePreviousMonthDays(startDate);
+  datesHtml += generateCurrentMonthDays(endDate);
+  datesHtml += generateNextMonthDays();
 
-        video = document.getElementById("camera");
-        document.addEventListener('click', TakePhoto);
-
-        navigator.mediaDevices
-            .getUserMedia({ video: true, audio: false })
-            .then((stream) => {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch((error) => {
-                console.error(`There was an error: ${error}`);
-            });
-
-        isSetup = true;
-    }
+  datesContainer.innerHTML = datesHtml;
+  updateHeader();
 }
 
-function TakePhoto(e) {
-    e.preventDefault();
-    
-    ctx.drawImage(video, 0, 0, width, height)
-    photoSound.play();
+function generatePreviousMonthDays(startDay) {
+  let html = "";
+  const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+  for (let i = startDay - 1; i >= 0; i--) {
+    html += `<li class="inactive">${prevMonthLastDay - i}</li>`;
+  }
+  return html;
 }
 
-window.addEventListener("gamepadconnected", (e) => {
-    console.log(
-        "Gamepad connected at index %d: %s. %d buttons, %d axes.",
-        e.gamepad.index,
-        e.gamepad.id,
-        e.gamepad.buttons.length,
-        e.gamepad.axes.length,
-    );
-});
-
-function initControllerListener() {
-    if ("getGamepads" in navigator) {
-        setInterval(checkController, 100);
-    } else {
-        console.error("Gamepad API not supported");
-    }
+function generateCurrentMonthDays(endDate) {
+  let html = "";
+  for (let i = 1; i <= endDate; i++) {
+    const className = (i === currentDate.getDate() &&
+      currentMonth === currentDate.getMonth() &&
+      currentYear === currentDate.getFullYear()) ? ' class="today"' : "";
+    html += `<li${className}>${i}</li>`;
+  }
+  return html;
 }
 
-function checkController() {
-    const gamepads = navigator.getGamepads();
-    for (const gamepad of gamepads) {
-        if (gamepad) {
-            const pressedButtons = gamepad.buttons
-                .map((button, i) => ({ pressed: button.pressed, index: i }))
-                .filter(button => button.pressed);
-
-            if (pressedButtons.length > 0) {
-                const buttonIndex = pressedButtons[0].index;
-                const buttonName = getButtonName(buttonIndex);
-
-                console.log(`${buttonName} button pressed on the Xbox controller!`);
-                TakePhoto(new Event('click'));
-            }
-        }
-    }
+function generateNextMonthDays() {
+  const endDay = new Date(currentYear, currentMonth + 1, 0).getDay();
+  let html = "";
+  for (let i = 1; i < 6 - endDay; i++) {
+    html += `<li class="inactive">${i}</li>`;
+  }
+  return html;
 }
 
-function getButtonName(buttonIndex) {
-    switch (buttonIndex) {
-        case 0:
-            return "A";
-        case 1:
-            return "B";
-        case 2:
-            return "X";
-        case 3:
-            return "Y";
-
-        default:
-            return `Button ${buttonIndex}`;
-    }
+function updateHeader() {
+  calendarHeader.textContent = `${months[currentMonth]} ${currentYear}`;
 }
 
-initControllerListener();
+function handleNavigation(action) {
+  if (action === "prev" && currentMonth === 0) {
+    currentYear--;
+    currentMonth = 11;
+  } else if (action === "next" && currentMonth === 11) {
+    currentYear++;
+    currentMonth = 0;
+  } else {
+    currentMonth += (action === "next" ? 1 : -1);
+  }
+
+  renderCalendar();
+}
+
+prevButton.addEventListener("click", () => handleNavigation("prev"));
+nextButton.addEventListener("click", () => handleNavigation("next"));
+
+renderCalendar();
