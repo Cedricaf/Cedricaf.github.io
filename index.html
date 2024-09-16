@@ -1,40 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="js/app.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Calendar-App</title>
-    <script defer src="./js/app.js"></script>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    
-    <div class="calendar">
-        <h1 class="calendar_title">Calendar</h1>
-      <header>
-        <h3></h3>
+    <header>
         <nav>
-          <button id="prev"></button>
-          <button id="next"></button>
+            <div class="logo">
+                <h1>Portfolio</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projecten</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
-      </header>
-      <section>
-        <ul class="days-in-the-week">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul class="dates-generator"></ul>
-      </section>
-    </div>
+    </header>
 
+    <section class="hero">
+        <div class="hero-content">
+            profielfoto
+            <figure class="hero-avatar"><img src="/assets/img" alt=""></figure>
+            <h2>Hallo, ik ben <span class="span">Cedric Király</span></h2>
+            <p>Een front-end developer in opleiding.</p>
+            <a href="resume.pdf" class="btn" download>Download CV</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About</h2>
+        <p class="about-text">
+            Ik wil mijzelf verder ontwikkelen als front-end developer met ervaring van <span class="span"> HTML </span>,
+            <span class="span"> CSS </span> en <span class="span"> Javascript </span> om voornamelijk websites te maken of te designen.
+            Graag zou ik wat meer ervaring willen opdoen door om aan meer projecten te werken.
+            Ook ben ik een rustig persoon die goed kan samenwerken in een team.
+        </p>
+    </section>
+
+  
+    <section id="projects">
+        <h2>Projecten</h2>
+        <div class="project-cards">
+            <a href="https://github.com/Cedricaf/bo-kunststpeeltuin">
+                <div class="card">
+                    <h3>Kunstspeeltuin</h3>
+                    <p>Github</p>
+                </div>
+            </a>
+            
+            <a href="https://github.com/Cedricaf/skateboard-website">
+                <div class="card">
+                    <h3>Skateboard-webshop</h3>
+                    <p>Github</p>
+                </div>
+            </a>
+
+            <a href="">
+                <div class="card">
+                    <h3>Project 3</h3>
+                    <p>Github</p>
+                </div>
+            </a>
+
+            <a href="">
+                <div class="card">
+                    <h3>Project 3</h3>
+                    <p>Github</p>
+                </div>
+            </a>
+            
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Ik ben te bereiken via:</p>
+        <div class="contact-content">
+          <p><strong>Email:</strong> <a href="mailto:cedricaf@outlook.com">cedricaf@outlook.com</a></p>
+        </div>
+    
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Cedric Király. All Rights Reserved.</p>
+    </footer>
 </body>
-
 </html>
