@@ -157,7 +157,7 @@ section {
   padding: 1.5rem;
   border-radius: 0.8rem;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
@@ -214,23 +214,47 @@ a, a:focus, a:active {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
   
 }
 
-.experience{
+.stats-iframe{
+
+}
+
+#skills h2{
+  padding: 1rem;
+}
+
+.skill-bar {
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
-.tag-cloud {
-  display: inline-block;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 2.5rem;
-  background-color: #F0A500;
-  margin-top: 8px;
+
+.skill-bar p {
+  font-weight: bold;
 }
+
+.progress {
+
+  width: 50%;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress span {
+  display: block;
+  height: 1rem;
+  background-color: #f0a500;
+  border-radius: 5%;
+}
+
 
 @media (max-width: 600px) {
   #about {
